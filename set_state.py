@@ -6,7 +6,9 @@ import os
 import sys
 from datetime import datetime
 
-STATE_FILE = "/root/.openclaw/workspace/star-office-ui/state.json"
+# 与 backend/app.py 保持一致：默认使用项目根目录下的 state.json
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATE_FILE = os.environ.get("STAR_OFFICE_STATE_FILE", os.path.join(ROOT_DIR, "state.json"))
 
 VALID_STATES = [
     "idle",

@@ -44,6 +44,11 @@
       "key": "ocj_starteam08",
       "name": "团队成员 08",
       "maxConcurrent": 3
+    },
+    {
+      "key": "ocj_starteam09",
+      "name": "团队成员 09",
+      "maxConcurrent": 3
     }
   ]
 }

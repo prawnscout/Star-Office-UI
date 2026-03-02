@@ -807,11 +807,17 @@ def set_state_endpoint():
 
 
 if __name__ == "__main__":
+    host = os.environ.get("STAR_OFFICE_HOST", "0.0.0.0")
+    try:
+        port = int(os.environ.get("STAR_OFFICE_PORT", "19000"))
+    except Exception:
+        port = 19000
+
     print("=" * 50)
     print("Star Office UI - Backend State Service")
     print("=" * 50)
     print(f"State file: {STATE_FILE}")
-    print("Listening on: http://0.0.0.0:19000")
+    print(f"Listening on: http://{host}:{port}")
     print("=" * 50)
     
-    app.run(host="0.0.0.0", port=19000, debug=False)
+    app.run(host=host, port=port, debug=False)

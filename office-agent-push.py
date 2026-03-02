@@ -3,9 +3,10 @@
 海辛办公室 - Agent 状态主动推送脚本
 
 用法：
-1. 填入下面的 JOIN_KEY（你从海辛那里拿到的一次性 join key）
-2. 填入 AGENT_NAME（你想要在办公室里显示的名字）
-3. 运行：python office-agent-push.py
+1. 通过环境变量设置 JOIN_KEY 和 AGENT_NAME
+   - `export OFFICE_JOIN_KEY="你的一次性 join key"`
+   - `export OFFICE_AGENT_NAME="你在办公室里显示的名字"`
+2. 运行：python office-agent-push.py
 4. 脚本会自动先 join（首次运行），然后每 30s 向海辛办公室推送一次你的当前状态
 """
 
@@ -15,10 +16,10 @@ import time
 import sys
 from datetime import datetime
 
-# === 你需要填入的信息 ===
-JOIN_KEY = ""   # 必填：你的一次性 join key
-AGENT_NAME = "" # 必填：你在办公室里的名字
-OFFICE_URL = "https://office.example.com"  # 海辛办公室地址（一般不用改）
+# === 配置信息（优先用环境变量，避免在代码里写明文凭据） ===
+JOIN_KEY = os.environ.get("OFFICE_JOIN_KEY", "").strip()   # 必填：你的一次性 join key
+AGENT_NAME = os.environ.get("OFFICE_AGENT_NAME", "").strip()  # 必填：你在办公室里的名字
+OFFICE_URL = os.environ.get("OFFICE_URL", "http://127.0.0.1:19000").rstrip("/")  # 海辛办公室地址
 
 # === 推送配置 ===
 PUSH_INTERVAL_SECONDS = 15  # 每隔多少秒推送一次（更实时）
@@ -223,7 +224,9 @@ def main():
 
     # 先确认配置是否齐全
     if not JOIN_KEY or not AGENT_NAME:
-        print("❌ 请先在脚本开头填入 JOIN_KEY 和 AGENT_NAME")
+        print("❌ 缺少配置：请先设置 OFFICE_JOIN_KEY 和 OFFICE_AGENT_NAME")
+        print('   例如：export OFFICE_JOIN_KEY="ocj_xxx"')
+        print('        export OFFICE_AGENT_NAME="你的名字"')
         sys.exit(1)
 
     # 如果之前没 join，先 join

@@ -454,3 +454,22 @@ star-office-ui/
    - 例如：`flowers-spritesheet` 会在 Nginx 子路径下解析为 `/ai-office/static/...`。
 
 如果你部署在站点根路径（`/`），上述改动同样兼容。
+
+---
+
+## X. 本次更新说明（2026-03-02）
+
+1. **后端监听地址可配置**
+   - `backend/app.py` 支持通过 `STAR_OFFICE_HOST` 和 `STAR_OFFICE_PORT` 配置监听地址与端口。
+   - 默认仍为 `0.0.0.0:19000`。
+
+2. **`set_state.py` 状态文件路径与后端保持一致**
+   - 默认改为项目根目录下的 `state.json`。
+   - 可通过 `STAR_OFFICE_STATE_FILE` 覆盖状态文件路径。
+
+3. **新增一个 join key**
+   - `join-keys.json` 增加 `ocj_starteam09`，并设置 `maxConcurrent: 3`。
+
+4. **推送脚本去除明文凭据**
+   - `office-agent-push.py` 不再在代码中硬编码 `JOIN_KEY` / `AGENT_NAME`。
+   - 改为通过 `OFFICE_JOIN_KEY` / `OFFICE_AGENT_NAME` 环境变量提供，降低凭据泄露风险。
