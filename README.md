@@ -440,17 +440,17 @@ star-office-ui/
 
 ---
 
-## IX. Fork notes (prawnscout)
+## IX. Fork 改动说明（prawnscout）
 
-This fork includes the following practical deployment changes:
+这个 fork 包含以下部署相关的实用改动：
 
-1. **Default backend port changed to `19000`**
-   - Updated backend startup port and related scripts/docs from `18791` to `19000`.
-   - Related files include `backend/app.py`, `healthcheck.sh`, `office-agent-push.py`, and docs references.
+1. **后端默认端口改为 `19000`**
+   - 已将后端启动端口及相关脚本/文档中的 `18791` 统一调整为 `19000`。
+   - 涉及文件包括 `backend/app.py`、`healthcheck.sh`、`office-agent-push.py` 及文档中的端口说明。
 
-2. **Frontend paths changed from absolute to relative**
-   - Replaced asset/API paths like `/static/...`, `/status`, `/agents` with relative paths.
-   - This makes reverse-proxy subpath deployment work correctly (for example: `/ai-office/`).
-   - Example: `flowers-spritesheet` now resolves under `/ai-office/static/...` when accessed via Nginx subpath.
+2. **前端路径由绝对路径改为相对路径**
+   - 将 `/static/...`、`/status`、`/agents` 等资源/API 路径改为相对路径。
+   - 这样在反向代理子路径部署时可正常访问（例如 `/ai-office/`）。
+   - 例如：`flowers-spritesheet` 会在 Nginx 子路径下解析为 `/ai-office/static/...`。
 
-If you deploy at root path (`/`), these changes still work as expected.
+如果你部署在站点根路径（`/`），上述改动同样兼容。
