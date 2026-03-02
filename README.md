@@ -437,3 +437,20 @@ star-office-ui/
   README.md
   LICENSE
 ```
+
+---
+
+## IX. Fork notes (prawnscout)
+
+This fork includes the following practical deployment changes:
+
+1. **Default backend port changed to `19000`**
+   - Updated backend startup port and related scripts/docs from `18791` to `19000`.
+   - Related files include `backend/app.py`, `healthcheck.sh`, `office-agent-push.py`, and docs references.
+
+2. **Frontend paths changed from absolute to relative**
+   - Replaced asset/API paths like `/static/...`, `/status`, `/agents` with relative paths.
+   - This makes reverse-proxy subpath deployment work correctly (for example: `/ai-office/`).
+   - Example: `flowers-spritesheet` now resolves under `/ai-office/static/...` when accessed via Nginx subpath.
+
+If you deploy at root path (`/`), these changes still work as expected.
